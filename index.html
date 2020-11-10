@@ -1,0 +1,672 @@
+<!-- Emre Liman 170101004 epicgames.com 
+  not:cssleri kendim yazdım hocam, websitesinden çekmeye çalıştım fakat olmadığını farkettim
+  elimden geldiğince benzettiğimi düşünüyorum
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="kayıtol.css" />
+    <link rel="stylesheet" href="girişyap.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <nav-bar></nav-bar>
+
+      <card-ıtem></card-ıtem>
+      <p class="cadilar">Cadılar Bayramı İndirimi</p>
+      <discount-card></discount-card>
+      <giriş-yap></giriş-yap>
+      <sipariş-kart></sipariş-kart>
+      <kayıt-ol></kayıt-ol>
+      <small-card></small-card>
+      <req-item></req-item>
+      <filter-item></filter-item>
+
+      <sıralama-kart></sıralama-kart>
+    </div>
+    <!-- 10 sıralama kart template-->
+    <script type="text/x-template" id="sıralama-kart-template">
+        <div class="sıralayan-kart">
+          <div class="sırala-çıkış">
+            <p style="margin-top:25px;margin-right:5px">Sırala:</p>
+            <div class="dropdown-sıralama">
+              <button class="dropbtn" @click="onClick">Çıkış Tarihi<i class="arrrowdown" :class="{ arrrrowup: selected }"></i> </button>
+              <div v-if="this.selected" class="dropdown-content">
+                <a href="#">Uygunluk</a>
+                <a href="#">Çıkış Tarihi</a>
+                <a href="#">Alfabetik</a>
+
+              </div>
+
+            </div>
+          </div>
+          <div class="discount-card-item" >
+        <div class="bottomcard" v-for="game in games" :key="game.name">
+          <img :src="game.img" alt="game" />
+          <p>{{game.name}}</p>
+          <p>{{game.corporation}}</p>
+          <div class="prices">
+            <p class="sıralı-discount">{{game.discount}}</p>
+            <p>{{game.price}}</p>
+            <p>{{game.discount_price}}</p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </script>
+    <!-- 9 giriş yap template -->
+    <script type="text/x-template" id="girişyap-template">
+
+      <div class="giriş-card">
+        <div class="giriş-logo">
+          <img src="./epicgames-logo.png" alt="logo" />
+        </div>
+        <p
+          style="
+            color: rgba(255, 255, 255, 0.75);
+            margin-left: 30px;
+            font: Brutal, sans-serif;
+            font-size: 13px;
+          "
+        >
+          BİR EPIC GAMES HESABI ILE GIRIŞ YAP
+        </p>
+
+        <div class="giriş-görünenad">
+          <input placeholder="*E-posta Adresi" required ><p style="margin-top:25px ;transform: translateX(-55px);">Gerekli</p> </input>
+        </div>
+
+        <div class="giriş-şifre">
+          <input placeholder="*Şifre " type="password" required ><p style="margin-top:25px ;transform: translateX(-55px);" >Gerekli</p></input>
+
+        </div>
+        <div class="giriş-teklifler">
+          <input type="checkbox" />
+          <p style="margin-top: 18px; margin-right: 110px">Beni hatırla</p>
+          <p style="margin-top: 18px">Şifreni Mİ Unuttun?</p>
+        </div>
+
+        <button class="giriş-devamet">HEMEN GİRİŞ YAP</button>
+        <p
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.815);
+            font-size: 12px;
+          "
+        >
+          Gizlilik Politikası
+        </p>
+        <p
+          style="
+            color: rgba(244, 244, 244, 0.5);
+            text-align: center;
+            font-size: 12px;
+          "
+        >
+          Epic Games hesabın yok mu? Kayıt Ol
+        </p>
+        <p
+          style="
+            color: rgba(244, 244, 244, 0.5);
+            text-align: center;
+            font-size: 12px;
+            margin-top: -5px;
+          "
+        >
+          Tüm kaydolma seçeneklerine geri dön
+        </p>
+
+      </div>
+    </script>
+    <!-- 8 sipariş kart template-->
+    <script type="text/x-template" id="sipariş-kart-template">
+      <div class="spö-kartı">
+        <p style="color: rgba(255, 255, 255, 0.8); margin: 15px 10px">
+          SİPARİŞ ÖZETİ
+        </p>
+        <div class="spö-img">
+          <img src="./Discount/crysis.jpg" alt="" />
+          <div class="spö-img-yazı">
+            <p
+              style="
+                font-size: 16px;
+                color: rgba(255, 255, 255, 0.781);
+                font: caption;
+              "
+            >
+              Crysis Remastered
+            </p>
+            <p style="margin-top: -10px">Crytek tarafından</p>
+          </div>
+        </div>
+        <div class="spö-white">
+          <p>Liste fiyatı</p>
+          <p>₺133,99</p>
+        </div>
+        <div class="spö-red" style="margin-top: -13px">
+          <p>İndirim</p>
+          <p>-₺46,90</p>
+        </div>
+        <div class="spö-red" style="margin-top: -13px">
+          <p>Epic Kuponu</p>
+          <p>-₺60,00</p>
+        </div>
+        <div class="spö-white" style="margin-top: -13px">
+          <p>Ücret</p>
+          <p style="color: rgba(255, 255, 255, 0.781)">₺27,09</p>
+        </div>
+        <p style="margin: 0 10px">Ödenmesi gereken durumlarda KDV dahildir</p>
+        <div>
+          <hr />
+        </div>
+        <div class="spö-white">
+          <p>Toplam</p>
+          <p style="color: rgba(255, 255, 255, 0.781)">₺27,09</p>
+        </div>
+        <div class="spö-white">
+          <p style="max-width: 50px; color: rgba(255, 255, 255, 0.781)">
+            Ödeyeceğin Miktar
+          </p>
+          <p style="color: rgba(255, 255, 255, 0.781)">₺27,09</p>
+        </div>
+        <div>
+          <hr />
+        </div>
+        <input class="spö-inp" placeholder="BİR İÇERİK ÜRETİCİSİ ETİKERİ GİR" />
+        <div class="spö-check">
+          <input
+            type="checkbox"
+            style="width: 30px; height: 30px; margin-top: 10px"
+          />
+          <p>
+            <a>
+              Crytek ile e-posta adresini paylaşmak için buraya tıkla.Crytek
+              e-posta</a
+            >
+          </p>
+        </div>
+        <button id="spö-ödeme">ÖDEME YAP</button>
+      </div>
+    </script>
+
+    <!-- 7 kayıt ol template-->
+    <script type="text/x-template" id="kayıtol-template">
+
+      <div class="kayıtol-card">
+        <div class="kaytol-logo">
+          <img src="./epicgames-logo.png" alt="logo" />
+        </div>
+        <div class="kayıtol-droplist">
+          <p
+            style="
+              color: #f4f4f4;
+              font-size: 12px;
+              font-family: Brutal, sans-serif;
+              margin-left: 32px;
+            "
+          >
+            KAYIT OL
+          </p>
+          <button class="kayıtol-dropbtn">
+            Turkey
+            <svg
+              class="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              style="width: 2rem; height: 2rem; float: right"
+            >
+              <path d="M7 10l5 5 5-5z"></path>
+            </svg>
+          </button>
+          <div class="kayıtol-drop-content">
+            <!--
+            <ul>
+              <li>Turkey</li>
+              <li>United States</li>
+              <li>United Kingdom</li>
+            </ul>
+            -->
+          </div>
+        </div>
+        <div class="kayıtol-adsoyad">
+          <input  placeholder="*Ad" required />
+          <input  placeholder="*Soyadı" required />
+        </div>
+        <div class="kayıtol-görünenad">
+          <input  placeholder="*Görünen Ad" required />
+
+          <input  placeholder="*E-posta Adresi" required />
+        </div>
+
+        <div class="kayıtol-şifre">
+          <input  placeholder="*Şifre " type="password" required />
+        </div>
+        <div class="kayıtol-teklifler">
+          <input type="checkbox" />
+          <p>
+            Epic Games'ten haberler, anketler ve özel teklifler almak istiyorum.
+          </p>
+        </div>
+        <div class="kayıtol-okudum">
+          <input type="checkbox" />
+          <p>Okudum ve onaylıyorum</p>
+        </div>
+        <button class="kayıtol-devamet">DEVAM ET</button>
+        <p
+          style="
+            text-align: center;
+            color: rgba(255, 255, 255, 0.815);
+            font-size: 12px;
+          "
+        >
+          Gizlilik Politikası
+        </p>
+        <p
+          style="
+            color: rgba(244, 244, 244, 0.5);
+            text-align: center;
+            font-size: 12px;
+          "
+        >
+          Epic Games hesabın var mı? Giriş Yap
+        </p>
+        <p
+          style="
+            color: rgba(244, 244, 244, 0.5);
+            text-align: center;
+            font-size: 12px;
+            margin-top: -5px;
+          "
+        >
+          Tüm kaydolma seçeneklerine geri dön
+        </p>
+      </div>
+    </script>
+
+    <!-- 6 filter item template-->
+    <script type="text/x-template" id="filter-item-template">
+
+      <div class="dropdown">
+        <p>Filtreler</p>
+        <hr/>
+        <button class="dropbtn" @click="onClick">Kategoriler <i class="arrow up" :class="{ arrowdown: !selected }"></i></button>
+        <div v-if="this.selected" class="dropdown-content">
+          <a href="#">Aksiyon</a>
+          <a href="#">Macera</a>
+          <a href="#">Mod Araçları</a>
+          <a href="#">Bulmaca</a>
+          <a href="#">Yarış</a>
+          <a href="#">RYO</a>
+          <a href="#">Nişancı</a>
+        </div>
+        <hr/>
+      </div>
+    </script>
+
+    <!-- 5 requirement item template-->
+    <script type="text/x-template" id="req-item-template">
+      <div class="req">
+        <p style="color: white">Özellikler</p>
+        <div class="req-card">
+          <div class="req-os" style="color: white; margin-bottom: 50px">
+            Windows
+            <hr />
+          </div>
+          <div class="req-min-ön">
+            <div class="req-min">
+              <p style="color: grey; margin-bottom: 50px">Minimum</p>
+              <p style="color: grey">İşletim Sistemi</p>
+              <p style="color: white">Windows 10 64-bit</p>
+              <p style="color: grey">İŞLEMCİ</p>
+              <p style="color: white">Core i3 3.3 Ghz</p>
+              <p style="color: grey">Bellek</p>
+              <p style="color: white">4GB RAM</p>
+              <p style="color: grey">Ekran Kartı</p>
+              <p style="color: white">Intel HD 4000</p>
+            </div>
+            <div class="req-ön">
+              <p style="color: grey; margin-bottom: 50px">Önerilen</p>
+              <p style="color: grey">İşletim Sistemi</p>
+              <p style="color: white">Windows 10 64-bit</p>
+              <p style="color: grey">İŞLEMCİ</p>
+              <p style="color: white">Core i5 3.5 Ghz</p>
+              <p style="color: grey">Bellek</p>
+              <p style="color: white">8 GB RAM</p>
+              <p style="color: grey">Ekran Kartı</p>
+              <p style="color: white">Nvidia GTX 660</p>
+            </div>
+          </div>
+          <div class="req-supported-lang">
+            <p style="color: grey">Desteklenen Diller:</p>
+            <p style="color: white">İngilizce, Fransızca, Almanca, Türkçe</p>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <!-- 4 small card template-->
+    <script type="text/x-template" id="small-card-template">
+      <div class="sm-card">
+        <img src="./Discount/tonyhawk.jpg" alt="" />
+        <p class="açıklama">
+          Şimdiye Kadar Yapılmış En Benzersiz Kaykay Oyunlarına Geri Dön
+          Efsanevi Tony Hawk ve diğer orijinal profesyonel kaykaycılar olarak
+          kay. Ayrıca yeni profesyoneller kaykaycılar da eklendi. Yeni
+          müziklerle birikte dönem belirleyici oyun müziklerinden parçaları
+          dinle. Tony Hawk's™ Pro Skater™ serisinin benzersiz mekanikleriyle
+          inanılmaz havalı kombolara imza at. Tüm orijinal modları oyna ve yerel
+          2 oyunculu modlarda başa baş mücadeleye gir. Geliştirilmiş
+          Create-A-Park ve Create-A-Skater özellikleriyle tarzını ve
+          yaratıcılığını göster. Çok oyunculu modlarda ve sıralamalarda dünyanın
+          her yerinden oyunculara karşı yarış.
+        </p>
+        <div class="sm-card-buy">
+          <div class="sm-prices">
+            <p id="sm-discount">-35%</p>
+            <p>133,99₺</p>
+            <p>87,09₺</p>
+          </div>
+          <div class="buy-fav-button">
+            <button>ŞİMDİ SATIN AL</button>
+            <button class="heart-icon"><i class="far fa-heart"></i></button>
+          </div>
+          <p>indirim 05.12.2020 saat 19:00'da bitiyor.</p>
+        </div>
+      </div>
+    </script>
+
+    <!-- 3 discount card template-->
+    <script type="text/x-template" id="discount-template">
+      <div class="discount-card-item" >
+        <div class="bottomcard" v-for="game in games" :key="game.name">
+          <img :src="game.img" alt="game" />
+          <p>{{game.name}}</p>
+          <p>{{game.corporation}}</p>
+          <div class="prices">
+            <p class="discount">{{game.discount}}</p>
+            <p>{{game.price}}</p>
+            <p>{{game.discount_price}}</p>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <!-- 2 navigation bar template -->
+    <script type="text/x-template" id="nav-bar-template">
+        <div id="nav-bar">
+        <ul>
+            <li><img src="./epicgames-logo.png" alt="loho"></li>
+            <li>MAĞAZA</li>
+            <li>HABERLER</li>
+            <li>SSS</li>
+            <li>YARDIM</li>
+            <li>UNREAL ENGİNE</li>
+            <li>EPİC GAMES'İ İNDİR</li>
+            <li>kullanıcı id</li>
+            <li><i class="fas fa-globe"></i></li>
+        </ul>
+      </div>
+    </script>
+
+    <!-- 1 card-ıtem template-->
+    <script type="text/x-template" id="card-ıtem-template">
+      <div id="top-card" >
+          <img :src="items[0].img" alt="">
+          <button @click="leftarrow">
+            <i class="arrow left"></i>
+          </button>
+          <button @click="rightarrow">
+            <i class="arrow right"></i>
+          </button>
+          <div class="card-about">
+            <p class="game-name">{{items[0].name}}</p>
+            <p class="game-about">
+              {{items[0].about}}
+            </p>
+            <a href="" style="padding-bottom:20px;">Hemen Kap -></a>
+          </div>
+        </div>
+    </script>
+
+    <!-- Vue  -->
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      // variables
+      var sayi = 0;
+      var newitem = [
+        {
+          key: 1,
+          name: "Auto Chess",
+          about:
+            "Auto Chess 1.0 çıktı! En iyi çevrimiçi rekabetçi strateji oyununda parçalarını seçerek ve takımını[...]",
+          img: "./assets/autochess.jpg",
+        },
+        {
+          key: 2,
+          name: "Ghost Runner",
+          about:
+            "Ghostrunner'ı ayağa kaldırmanın ve kıyamet sonrasını yaşayan insanlığı acımasız Key Master'dan[...]",
+          img: "./assets/ghostrunner.jpg",
+        },
+        {
+          key: 0,
+          name: "Rogue Company",
+          about:
+            "Fixer geldi! En son güncellemeyle birlikte Rogue Company'de yeni Sniper'ı bugün oyna!",
+          img: "./assets/roguecompany.jpg",
+        },
+      ];
+      //sıralama kart component
+      Vue.component("sıralama-kart", {
+        template: "#sıralama-kart-template",
+        data() {
+          return {
+            games: [
+              {
+                name: "Superliminal Double-Albu...",
+                corporation: "Pillow Castle",
+                discount: "-20%",
+                price: "100,00₺",
+                discount_price: "80,00₺",
+                img: "./Discount/superliminal.jpg",
+              },
+              {
+                name: "Watch Dogs: Legion",
+                corporation: "Ubisoft",
+                discount: "-50%",
+                price: "300,00₺",
+                discount_price: "150,00₺",
+                img: "./Discount/watchdogs.jpg",
+              },
+              {
+                name: "Auto Chess",
+                corporation: "Dragonest Game",
+                discount: "-100%",
+                price: "80,00₺",
+                discount_price: "free",
+                img: "./Discount/autochess.jpg",
+              },
+
+              {
+                name: "Pumpkin Jack",
+                corporation: "Nicolas Meyssonier",
+                discount: "-10%",
+                price: "100,00₺",
+                discount_price: "90,00₺",
+                img: "./Discount/pumpkinjack.jpg",
+              },
+
+              {
+                name: "Tony Hawk's Pro Skater...",
+                corporation: "Vicarious Visions | Activis...",
+                discount: "-40%",
+                price: "200,00₺",
+                discount_price: "120,00₺",
+                img: "./Discount/tonyhawk.jpg",
+              },
+            ],
+            selected: false,
+          };
+        },
+        methods: {
+          onClick: function () {
+            this.selected = !this.selected;
+          },
+        },
+      });
+
+      //girişyap component
+      Vue.component("giriş-yap", {
+        template: "#girişyap-template",
+      });
+      //sipariş kart component
+      Vue.component("sipariş-kart", {
+        template: "#sipariş-kart-template",
+      });
+      // kayıt ol component
+      Vue.component("kayıt-ol", {
+        template: "#kayıtol-template",
+      });
+
+      // filter item component
+      Vue.component("filter-item", {
+        template: "#filter-item-template",
+        data() {
+          return {
+            selected: true,
+          };
+        },
+        methods: {
+          onClick: function () {
+            this.selected = !this.selected;
+          },
+        },
+      });
+
+      // small card component
+      Vue.component("small-card", {
+        template: "#small-card-template",
+      });
+
+      // requirement item component
+      Vue.component("req-item", {
+        template: "#req-item-template",
+      });
+
+      // discount card component
+      Vue.component("discount-card", {
+        template: "#discount-template",
+        data() {
+          return {
+            games: [
+              {
+                name: "Tony Hawk's Pro Skater...",
+                corporation: "Vicarious Visions | Activis...",
+                discount: "-40%",
+                price: "200,00₺",
+                discount_price: "120,00₺",
+                img: "./Discount/tonyhawk.jpg",
+              },
+              {
+                name: "Superliminal Double-Albu...",
+                corporation: "Pillow Castle",
+                discount: "-20%",
+                price: "100,00₺",
+                discount_price: "80,00₺",
+                img: "./Discount/superliminal.jpg",
+              },
+              {
+                name: "Auto Chess",
+                corporation: "Dragonest Game",
+                discount: "-100%",
+                price: "80,00₺",
+                discount_price: "free",
+                img: "./Discount/autochess.jpg",
+              },
+              {
+                name: "Watch Dogs: Legion",
+                corporation: "Ubisoft",
+                discount: "-50%",
+                price: "300,00₺",
+                discount_price: "150,00₺",
+                img: "./Discount/watchdogs.jpg",
+              },
+              {
+                name: "Pumpkin Jack",
+                corporation: "Nicolas Meyssonier",
+                discount: "-10%",
+                price: "100,00₺",
+                discount_price: "90,00₺",
+                img: "./Discount/pumpkinjack.jpg",
+              },
+            ],
+          };
+        },
+      });
+
+      // card-ıtem component
+      Vue.component("card-ıtem", {
+        template: "#card-ıtem-template",
+        data() {
+          return {
+            items: [
+              {
+                key: 0,
+                name: "Rogue Company",
+                about:
+                  "Fixer geldi! En son güncellemeyle birlikte Rogue Company'de yeni Sniper'ı bugün oyna!",
+                img: "./assets/roguecompany.jpg",
+              },
+            ],
+          };
+        },
+        methods: {
+          rightarrow: function () {
+            this.items[0].name = newitem[sayi].name;
+            this.items[0].about = newitem[sayi].about;
+            this.items[0].img = newitem[sayi].img;
+            sayi++;
+            if (sayi === 3) {
+              sayi = 0;
+            }
+          },
+          leftarrow: function () {
+            newitem.reverse();
+            this.items[0].name = newitem[sayi].name;
+            this.items[0].about = newitem[sayi].about;
+            this.items[0].img = newitem[sayi].img;
+            sayi++;
+            if (sayi === 3) {
+              sayi = 0;
+            }
+          },
+        },
+      });
+
+      // navigation bar component
+      Vue.component("nav-bar", {
+        template: "#nav-bar-template",
+      });
+
+      new Vue({
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>
